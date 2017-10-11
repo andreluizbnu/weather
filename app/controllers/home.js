@@ -21,9 +21,9 @@ function homeController($scope, forecastService, moment) {
 
 
     vm.loadForecast = loadForecast;
-    vm.showTemperatures = true;
-    vm.showChart = true;
-    vm.showRecommendations = true;
+    vm.showTemperatures = false;
+    vm.showChart = false;
+    vm.showFavoritesList = false;
 
 
     vm.chartOptions = {
@@ -35,13 +35,15 @@ function homeController($scope, forecastService, moment) {
 
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', '6', '7']
         },
 
         series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            name: 'Min. Temp.',
+            data: []
         }, {
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            name: 'Max. Temp.',
+            data: []
         }]
     };
 
@@ -55,9 +57,44 @@ function homeController($scope, forecastService, moment) {
             vm.location = autocomplete;
             vm.dayForecast.minTemp = data.response[0].periods[0].minTempC;
             vm.dayForecast.maxTemp = data.response[0].periods[0].maxTempC;
-            findMinMaxWeek(data.response[0].periods)
+            findMinMaxWeek(data.response[0].periods);
+            prepareChart(data.response[0].periods);
         });
         vm.showTemperatures = true;
+        vm.showChart = true;
+    }
+
+    function prepareChart(periods) {
+
+        vm.chartOptions = {
+            title: {
+                text: 'Temperatura da semana'
+            },
+            chart: {
+                height: '200px'
+
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', '6', '7']
+            },
+
+            series: [{
+                name: 'Min. Temp.',
+                data: []
+            }, {
+                name: 'Max. Temp.',
+                data: []
+            }]
+        };
+
+        for (var i = 0; i < periods.length; i++) {
+            console.log('SERIES: ' + vm.chartOptions.series[0].data);
+            vm.chartOptions.series[0].data.push(periods[i].minTempC);
+        }
+
+        console.log(vm.chartOptions.series[0].data);
+        console.log(vm.chartOptions.series[1].data);
+
     }
 
     function findMinMaxWeek(periods) {
@@ -80,8 +117,6 @@ function homeController($scope, forecastService, moment) {
         vm.weekForecast.maxDate = maxDate;
         vm.weekForecast.min = min;
         vm.weekForecast.minDate = minDate;
-        console.log('MINDATE: ' + vm.weekForecast.minDate);
-        console.log('MAXDATE: ' + vm.weekForecast.maxDate);
     }
 
 
