@@ -1,0 +1,85 @@
+<!--<div class="container-fluid">-->
+<!--<div class="jumbotron" xmlns="http://www.w3.org/1999/html" ng-controller="homeCtrl">-->
+<!--<h1 class="display-4">Where are you now?</h1>-->
+<!--<p class="lead">This is a simple application that shows you the weather conditions for the selected place.</p>-->
+<!--{{vm.message}}-->
+<!--<p class="lead">-->
+<!--<div>-->
+<!--<form>-->
+<!--<div class="form-group">-->
+
+<!--<input class="form-control" type="text" ng-autocomplete ng-model="autocomplete" options="vm.options" details="details" />-->
+<!--</div>-->
+<!--<button class="btn-block btn btn-primary" ng-click="vm.salvaLocalizacao(autocomplete)">Buscar</button>-->
+<!--<hr/>-->
+<!--</form>-->
+<!--</div>-->
+<!--</p>-->
+<!--<div ng-show="vm.isLocalizacaoVazia()">-->
+<!--<h4>Previsão do tempo</h4>-->
+<!--<div class="alert alert-warning alert-dismissible fade show" ng-repeat="forecast in vm.forecasts track by $index" role="alert">-->
+<!--<button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="vm.deleteForecats($index)">-->
+<!--<span aria-hidden="true">&times;</span>-->
+<!--</button>-->
+<!--<h4 class="alert-heading">{{forecast.place}}</h4>-->
+<!--<div>Mínima: {{forecast.minTemp}}</div>-->
+<!--<div>Máxima: {{forecast.maxTemp}}</div>-->
+<!--<hr>-->
+<!--<p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<!--</div>-->
+<!--</div>-->
+
+<div class="container" ng-controller="homeCtrl">
+
+
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Where are you now?</h1>
+        <p class="lead">This is a simple application that shows you the weather conditions for the selected place.</p>
+        <p><input class="form-control" type="text" ng-autocomplete ng-model="autocomplete" options="vm.options"
+                  details="vm.details"/></p>
+        <a class="btn btn-success" ng-click="vm.loadForecast(autocomplete)" role="button">Search</a><a
+            class="btn btn-success" role="button">Set Favorite</a>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-lg-4" ng-show="vm.showTemperatures">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Temperatures</div>
+                <div class="panel-body">
+                    <h5>{{vm.location}}</h5>
+                    <div>Mínima: {{vm.dayForecast.minTemp}}</div>
+                    <div>Máxima: {{vm.dayForecast.maxTemp}}</div>
+                    <hr>
+                    <div>Mínima: {{vm.weekForecast.min}} no dia {{vm.weekForecast.minDate | amDateFormat:'DD/MM'}}
+                    </div>
+                    <div>Máxima: {{vm.weekForecast.max}} no dia {{vm.weekForecast.maxDate | amDateFormat:'DD/MM'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8" ng-show="vm.showChart">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Chart</div>
+                <div class="panel-body">
+                    <hc-chart options="vm.chartOptions">Teste</hc-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6" ng-show="vm.showRecommendations">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Favorites List</div>
+                <div class="panel-body">
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
