@@ -6,6 +6,7 @@ angular.module('weatherApp', [
     'forecastService',
     'ngResource',
     'angularMoment',
+    'highcharts-ng',
     'ngAutocomplete'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('!');
